@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: fuel-price-api
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        sync: false   # set manually in Render dashboard (your Neon connection string)
+      - key: ADMIN_API_KEY
+        sync: false   # optional, for the POST /admin/refresh endpoint
+
+  - type: cron
+    name: fuel-price-scraper
+    runtime: python
+    plan: free
+    schedule: "0 1 * * *"   # 01:00 UTC daily = 6:30 AM IST, after IOC's 6am price revision
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -m scripts.run_scrape"
+    envVars:
+      - key: DATABASE_URL
+        sync: false   # same Neon connection string as the web service
