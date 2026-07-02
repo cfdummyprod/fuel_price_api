@@ -19,5 +19,7 @@ services:
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python -m scripts.run_scrape"
     envVars:
+     - key: PYTHON_VERSION
+        value: "3.11.9"
       - key: DATABASE_URL
         sync: false   # same Neon connection string as the web service
