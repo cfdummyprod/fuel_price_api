@@ -3,6 +3,6 @@ uvicorn[standard]==0.30.1
 requests==2.32.3
 lxml==5.2.2
 SQLAlchemy==2.0.31
-psycopg[binary]==3.2.1
+psycopg[binary]==3.2.10
 python-dotenv==1.0.1
 tenacity==8.5.0
